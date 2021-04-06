@@ -9,25 +9,31 @@ const validateAdmin = (req, res, next) => {
     } else {
         jwt.verify(token, process.env.JWT_SECRET, (err, decodeToken) => {
             console.log('decodeToken -->', decodeToken);
-            if (!err && decodeToken){
-                User.findOne({
-                    where: {
-                        id: decodeToken.id,
-                        isAdmin: true
-                    }
-                })
-                    .then(user => {
-                        console.log('user -->', user);
-                        if (!user) throw err;
-                        console.log('req -->', req);
-                        req.user = user;
-                        return next();
+            if(decodeToken.isAdmin) {
+                let trueAdmin = decodeToken.isAdmin
+                if (!err && decodeToken){
+                    User.findOne({
+                        where: {
+                            id: decodeToken.id,
+                            isAdmin: trueAdmin
+                        }
                     })
-                    .catch(err => next(err));
+                        .then(user => {
+                            console.log('user -->', user);
+                            if (!user) throw err;
+                            console.log('req -->', req);
+                            req.user = user;
+                            return next();
+                        })
+                        .catch(err => next(err));
+                } else {
+                    req.errors = err;
+                    return res.status(500).send('Not authorized');
+                }
             } else {
-                req.errors = err;
-                return res.status(500).send('Not authorized');
+                return res.status(500).send('Not an admin');
             }
+           
         });
     }
 };
