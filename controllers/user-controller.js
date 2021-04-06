@@ -61,6 +61,24 @@ router.get('/userinfo', validateAdmin, function(req, res){
         .catch(err => res.status(500).json({error: err}))
 });
 
+// UPDATE A USER *PROTECTED ADMIN ROUTE* - PROMOTE USER TO ADMIN
+router.put('/update/:id', validateSession, function(req, res){
+    const updateUser = {
+        firstName: req.body.user.firstName,
+        lastName: req.body.user.lastName,
+        email: req.body.user.email,
+        password: req.body.user.password,
+        isAdmin: req.body.user.isAdmin
+    }
+
+    const query = { where: { id: req.params.id }};
+
+    User.update(updateUser, query)
+        .then(recordsChanged => res.status(200).json({message: `${recordsChanged} records changed.`}))
+        .catch(err => res.status(500).json({ error: err }));
+})
+
+
 // DELETE A USER *PROTECTED ADMIN ROUTE*
 
 router.delete('/delete/:id', validateAdmin, function(req, res) {
