@@ -18,7 +18,7 @@ router.post('/register', function(req, res) {
         res.status(200).json({
                     user: user,
                     message: 'User created successfully. Enjoy the rainbows!',
-                    sessionToken: token
+                    token: token
                 });
             }
         )
@@ -62,7 +62,7 @@ router.get('/userinfo', validateAdmin, function(req, res){
 });
 
 // UPDATE A USER *PROTECTED ADMIN ROUTE* - PROMOTE USER TO ADMIN
-router.put('/update/:id', validateSession, function(req, res){
+router.put('/update/:id', validateAdmin, function(req, res){
     const updateUser = {
         firstName: req.body.user.firstName,
         lastName: req.body.user.lastName,
