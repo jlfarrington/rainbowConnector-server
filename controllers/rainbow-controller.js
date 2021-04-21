@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const validateSession = require('../middleware/validateSession');
-const validateAdmin = require('../middleware/validateAdmin')
+const validateAdmin = require('../middleware/validateAdmin');
 const Rainbow = require('../db').import('../models/rainbow');
+const cloudinary = require('cloudinary');
+
 // REPORT A RAINBOW
 
 router.post('/report', validateSession, function(req, res) {
@@ -33,18 +35,6 @@ router.get('/', validateSession, function(req, res) {
 });
 
 
-
-// GET RAINBOW BY ID
-
-router.get('/:id', validateSession, function(req, res) {
-    Rainbow.findOne({
-        where: { id: req.params.id }
-    })
-        .then(rainbow => res.status(200).json(rainbow))
-        .catch(err => res.status(500).json({ error: err }))
-})
-
-
 // UPDATE A RAINBOW
 
 router.put('/:id', validateSession, function(req, res){
@@ -71,5 +61,40 @@ router.delete('/:id', validateAdmin, function(req, res) {
             message: `${recordsChanged} record(s) changed.`}),
             (err) => res.status(500).json({ error: err, message: 'delete failed'}))
         });
+
+
+
+// CLOUDINARY SIGN
+router.get('/cloudsign', validateSession, async(req, res) => {
+    try {
+        const ts = Math.floor(new Date().getTime() / 1000).toString();
+        
+      
+        const sig = cloudinary.utils.api_sign_request({
+            timestamp: ts, upload_preset: 'euqfw3n3'},
+            process.env.CLOUDINARY_SECRET
+        )
+
+        res.status(200).json({
+            sig, ts
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: 'failed to sign'
+        })
+    }
+})
+
+
+
+// GET RAINBOW BY ID
+
+router.get('/:id', validateSession, function(req, res) {
+    Rainbow.findOne({
+        where: { id: req.params.id }
+    })
+        .then(rainbow => res.status(200).json(rainbow))
+        .catch(err => res.status(500).json({ error: err }))
+})
 
 module.exports = router;
