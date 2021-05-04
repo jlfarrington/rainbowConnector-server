@@ -23,6 +23,14 @@ router.post('/post/:rainbowid', validateSession, function(req, res) {
         ) .catch(err => res.status(500).json({ error: err }))
 })
 
+// GET COMMENTS (ALL) *PROTECTED ADMIN ROUTE*
+
+router.get('/all', validateAdmin, function(req, res){
+    Comment.findAll()
+        .then((users) => res.status(200).json(users))
+        .catch(err => res.status(500).json({error: err}))
+});
+
 // UPDATE A COMMENT
 
 router.put('/:id', validateSession, function(req, res) {
