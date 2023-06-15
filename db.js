@@ -2,8 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a/rainbowconnector',
                                 'postgres1', 
-                                process.env.DB_PASS, 
-  dialect: 'postgres'
+                                process.env.DB_PASS, { dialect: 'postgres'
 });
 
 sequelize.authenticate().then(
