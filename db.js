@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize('process.env.DB_LINK',
+const sequelize = new Sequelize(process.env.DB_LINK,
                                 'postgres1', 
                                 process.env.DB_PASS, { dialect: 'postgres'
 });
