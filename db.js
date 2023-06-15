@@ -1,10 +1,8 @@
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a.oregon-postgres.render.com/rainbowconnector',
-                                'postgres1', process.env.DB_PASS, {
-  host: 'localhost',
-  dialect: 'postgres',
-});
+                                'postgres1', 
+                                process.env.DB_PASS);
 
 sequelize.authenticate().then(
     function () {
