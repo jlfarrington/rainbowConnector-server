@@ -11,7 +11,7 @@ router.post('/post/:rainbowid', validateSession, function(req, res) {
     Comment.create({
         body: req.body.comment.body,
         likes: req.body.comment.likes,
-        rainbowId: req.params.rainbowid,
+        RainbowId: req.params.rainbowid,
         userId: req.user.id
     })
         .then(
@@ -52,7 +52,7 @@ router.put('/:id', validateSession, function(req, res) {
 router.get('/:rainbowid', validateSession, function(req, res) {
     Comment.findAll({
         where: {
-            rainbowId: req.params.rainbowid
+            RainbowId: req.params.rainbowid
         }
     })
         .then(comments => res.status(200).json(comments))
