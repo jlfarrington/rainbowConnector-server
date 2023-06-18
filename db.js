@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize(process.env.DB_LINK)
+const dbLink = process.env.DB_LINK;
+const sequelize = new Sequelize(dbLink);
 
 sequelize.authenticate().then(
     function () {
