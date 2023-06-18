@@ -2,7 +2,7 @@ const express = require('express');
 const validateSession = require('../middleware/validateSession');
 const validateAdmin = require('../middleware/validateAdmin')
 const router = express.Router();
-const Comment = require('../db').import('../models/comment');
+const Comment = require('../db');
 
 // CREATE COMMENT
 

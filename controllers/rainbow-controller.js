@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validateSession = require('../middleware/validateSession');
 const validateAdmin = require('../middleware/validateAdmin');
-const Rainbow = require('../db').import('../models/rainbow');
+const Rainbow = require('../db');
 const cloudinary = require('cloudinary');
 
 // REPORT A RAINBOW
