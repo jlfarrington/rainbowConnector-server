@@ -1,3 +1,4 @@
+const sequelize = require('../db')
 const User = sequelize.models.User;
 const bycrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

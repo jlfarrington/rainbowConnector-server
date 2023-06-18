@@ -18,7 +18,7 @@ sequelize.authenticate().then(
     }
   )
 
-  const User = sequelize.define("user", {
+  const User = sequelize.define("User", {
     firstName: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -41,7 +41,7 @@ sequelize.authenticate().then(
         allowNull: false,
     },
   });
-const Rainbow = sequelize.define("rainbow", {
+const Rainbow = sequelize.define("Rainbow", {
   image: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -61,7 +61,7 @@ const Rainbow = sequelize.define("rainbow", {
   }
 });
 
-const Comment = sequelize.define('comment', {
+const Comment = sequelize.define('Comment', {
   body: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -81,5 +81,7 @@ Comment.belongsTo(Rainbow);
 
 User.hasMany(Comment);
 Comment.belongsTo(User);
+
+console.log("this is sequelize.models.user: " + JSON.stringify(sequelize.models));
 
 module.exports = sequelize;

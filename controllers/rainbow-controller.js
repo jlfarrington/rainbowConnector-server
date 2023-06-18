@@ -3,6 +3,7 @@ const router = express.Router();
 const validateSession = require('../middleware/validateSession');
 const validateAdmin = require('../middleware/validateAdmin');
 const cloudinary = require('cloudinary');
+const sequelize = require('../db');
 const Rainbow = sequelize.models.Rainbow;
 
 // REPORT A RAINBOW

@@ -1,3 +1,4 @@
+const sequelize = require('../db');
 const jwt = require('jsonwebtoken');
 const User = sequelize.models.User;
 

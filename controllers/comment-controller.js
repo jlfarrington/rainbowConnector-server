@@ -2,6 +2,7 @@ const express = require('express');
 const validateSession = require('../middleware/validateSession');
 const validateAdmin = require('../middleware/validateAdmin')
 const router = express.Router();
+const sequelize = require('../db');
 const Comment = sequelize.models.Comment;
 
 // CREATE COMMENT
