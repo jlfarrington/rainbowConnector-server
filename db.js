@@ -1,9 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
+let sequelize;
 if (process.env.IS_LOCAL) {
-  const sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a.oregon-postgres.render.com/rainbowconnector?ssl=true')
+  sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a.oregon-postgres.render.com/rainbowconnector?ssl=true')
 } else {
-  const sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a/rainbowconnector')
+  sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a/rainbowconnector')
 }
 
 
