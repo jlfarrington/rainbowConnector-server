@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../db');
+const User = sequelize.models.User;
 
 const validateSession = (req, res, next) => {
     const token = req.headers.authorization;
