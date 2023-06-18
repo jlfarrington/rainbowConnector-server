@@ -1,7 +1,12 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const dbLink = process.env.DB_LINK;
-const sequelize = new Sequelize(dbLink);
+if (process.env.IS_LOCAL) {
+  const sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a.oregon-postgres.render.com/rainbowconnector?ssl=true')
+} else {
+  const sequelize = new Sequelize('postgres://postgres1:3QjnV7Hp8qdZ2JAn66ODA9NJIrlWeIAF@dpg-ci5iiotph6eh6mut9870-a/rainbowconnector')
+}
+
+
 
 sequelize.authenticate().then(
     function () {
