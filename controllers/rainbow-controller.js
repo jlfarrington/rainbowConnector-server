@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const validateSession = require("../middleware/validateSession");
 const validateAdmin = require("../middleware/validateAdmin");
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 const sequelize = require("../db");
 const Rainbow = sequelize.models.Rainbow;
 
@@ -69,10 +69,16 @@ router.get("/cloudsign", validateSession, async (req, res) => {
 	try {
 		const ts = Math.floor(new Date().getTime() / 1000).toString();
 
+		cloudinary.config({
+			cloud_name: "rainbowconnector",
+			api_key: process.env.API_KEY,
+			api_secret: process.env.API_SECRET,
+		});
+
 		const sig = cloudinary.utils.api_sign_request(
 			{
 				timestamp: ts,
-				upload_preset: "nynrj6up",
+				upload_preset: "euqfw3n3",
 			},
 			process.env.CLOUDINARY_SECRET
 		);
